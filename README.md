@@ -4,7 +4,7 @@ Experimental browser-based photoplethysmography (PPG) prototype for iPhone.
 
 > **Required Notice:** Copyright 2026 AR-Night. Eris Pulse Lab.
 
-## Current prototype — v0.4
+## Current prototype — v0.5
 
 - 60-second measurement session
 - Rear-camera access and torch-capability search
@@ -12,14 +12,18 @@ Experimental browser-based photoplethysmography (PPG) prototype for iPhone.
 - Finger-contact and basic saturation checks
 - Real RGB camera-frame acquisition
 - Real-time PPG waveform
+- **Animated heartbeat synchronized to the estimated BPM**
+- **Animated breathing indicator synchronized to the PPG-derived respiratory estimate when confidence is sufficient**
+- **Live trend built progressively during acquisition**
 - BPM estimate and BPM trend
+- Respiratory-rate trend when estimable
 - BPM mean, minimum and maximum
 - Median RR / IBI interval
 - Short-term RMSSD estimate
 - Signal-quality score
 - Estimated respiratory rate from slow PPG modulation, only when signal confidence is sufficient
 - Exploratory pulse morphology: rise time, pulse width, optical AC/DC pulsatility and dicrotic-notch screening
-- Automatic **Eris Physiological Report** at the end of the session
+- **Automatic final trend + Eris Physiological Report at the end of the session**
 - No invented value: unavailable or weak features are reported as **Not estimable / Non stimabile**
 
 ## How the respiratory estimate is obtained
@@ -30,9 +34,11 @@ This is an **indirect PPG-derived estimate**, not a spirometric measurement.
 
 ## Final report
 
-The report can include:
+At the end of the 60-second session the app automatically opens the final trend and report. The report can include:
 
 - mean / minimum / maximum BPM
+- complete BPM trend
+- respiratory trend when estimable
 - median RR / IBI
 - RMSSD
 - estimated respiratory rate + confidence
