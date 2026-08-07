@@ -4,65 +4,97 @@ Experimental browser-based photoplethysmography (PPG) prototype for iPhone.
 
 > **Required Notice:** Copyright 2026 AR-Night. Eris Pulse Lab.
 
-## Current prototype — v0.6 WOW
+## Current prototype — v0.7 WOW
 
-The v0.6 interface moves the project toward a more cinematic health-tech presentation while keeping the analysis tied to the real camera-derived PPG signal.
+Eris Pulse Lab performs a **30-second** fingertip PPG scan using the iPhone rear camera + flash. The interface keeps the animated anatomical torso introduced in v0.6 while extending the physiological analysis pipeline.
 
 ### Measurement flow
 
-- **30-second** measurement session
-- Rear-camera access and torch-capability search
-- Torch test before measurement
-- Finger-contact and basic saturation checks
-- Real RGB camera-frame acquisition
-- Real-time PPG waveform
-- Live BPM estimate and trend
-- PPG-derived respiratory estimate when confidence is sufficient
-- Median RR / IBI interval
-- Short-term RMSSD estimate
-- Signal-quality estimate
-- Exploratory pulse morphology: rise time, pulse width, optical AC/DC pulsatility and dicrotic-notch screening
-- Automatic final trend and **Eris Physiological Report**
-- Weak or unavailable features are shown as **Non stimabile** instead of being invented
+- rear-camera access and torch-capability search
+- torch test before measurement
+- stable fingertip/contact check
+- real RGB frame acquisition
+- real-time PPG waveform
+- live BPM estimate and trend
+- anatomical heart animation synchronized to BPM
+- PPG-derived respiratory estimate with animated lungs when estimable
+- automatic final trend + **Eris Physiological Report**
+- weak/unavailable features are shown as **Non stimabile** rather than invented
 
-## v0.6 visual system
+## v0.7 physiological outputs
 
-The live screen now includes an inline anatomical torso rendered directly in SVG:
+### Heart / pulse
 
-- translucent thorax and rib-cage styling
-- animated glowing heart
-- heart animation duration synchronized to the estimated BPM
-- animated lungs / thoracic expansion
-- breathing animation synchronized to the PPG-derived respiratory estimate when available
-- moving scan line and rotating HUD rings
-- live heart-rate and respiratory HUD cards
-- trend that is progressively drawn during the scan
+- BPM mean / minimum / maximum
+- median RR / IBI
+- real PPG waveform and BPM trend
+- signal quality and valid-frame percentage
+
+### HRV
+
+- RMSSD
+- SDNN on the 30-second window (**ultra-short / orientative**)
+- pNN50 on the 30-second window (**ultra-short / orientative**)
+- LF/HF is intentionally **not calculated** in the 30-second protocol; the report marks it as requiring a longer acquisition
+
+### Respiratory rate
+
+The respiratory estimate now combines three PPG-derived mechanisms when they are coherent:
+
+1. slow baseline/intensity modulation (RIIV)
+2. pulse-amplitude variability (PAV)
+3. beat-to-beat / IBI modulation (PRV)
+
+The app fuses compatible estimates and reports a respiratory rate only when the signal confidence is sufficient. It is an indirect PPG-derived estimate, not spirometry.
+
+### Rhythm regularity screening
+
+v0.7 adds a heuristic PPG rhythm-regularity screen based on beat-to-beat interval variability and outlier burden:
+
+- **Regolare**
+- **Variabile**
+- **Da verificare**
+
+This is **not an atrial-fibrillation diagnosis** and does not replace ECG confirmation.
+
+### Optical oxygenation research index
+
+v0.7 records red and green camera-channel pulsatility and calculates a research-only normalized ratio:
+
+`(AC/DC red) / (AC/DC green)`
+
+The app also checks whether that optical index is reasonably stable across the two halves of the recording.
+
+**Important:** this value is **not converted to SpO₂**. A clinically meaningful oxygen-saturation percentage would require device-specific calibration and validation. The report therefore explicitly shows **SpO₂: Non riportata**.
+
+### Blood pressure
+
+Blood pressure remains excluded. No mmHg value is inferred from the single-camera PPG signal.
+
+## Exploratory pulse morphology
+
+When frame rate and waveform quality allow, the report can include:
+
+- rise time
+- pulse width
+- relative optical AC/DC pulsatility
+- dicrotic-notch screening
+
+These are relative/exploratory waveform features, not direct vascular diagnoses.
+
+## Visual system
+
+The live screen uses an inline SVG anatomical torso:
+
+- translucent thorax and rib styling
+- glowing heart synchronized to BPM
+- breathing lungs synchronized to the PPG-derived respiratory estimate
+- moving scan line and HUD rings
+- live heart-rate / respiratory HUD
+- continuously drawn PPG and trend curves
 - automatic transition to the final trend/report after 30 seconds
 
-The anatomical display is a visualization layer; physiological values continue to come from the PPG analysis pipeline rather than from the animation.
-
-## How the respiratory estimate is obtained
-
-Breathing can modulate a PPG signal through slower changes in baseline, pulse amplitude and beat-to-beat timing. Eris Pulse Lab searches the acquired optical signal for a coherent low-frequency modulation compatible with a respiratory rhythm.
-
-Because v0.6 uses a short 30-second window, respiratory output is treated as an **indirect estimate / trend feature**. If the modulation is not sufficiently coherent, the report returns **Non stimabile**.
-
-This is not a spirometric measurement.
-
-## Final report
-
-At the end of the 30-second session the app automatically opens the final trend and report. The report can include:
-
-- mean / minimum / maximum BPM
-- BPM trend
-- respiratory trend when estimable
-- median RR / IBI
-- RMSSD
-- estimated respiratory rate + confidence
-- rise time and pulse width when measurable
-- relative optical AC/DC pulsatility
-- dicrotic-notch screening when morphology and frame rate are adequate
-- session quality, valid-frame percentage and FPS
+The anatomy is a visualization layer; physiological outputs are calculated from the acquired camera signal.
 
 ## Clinical rationale
 
@@ -70,17 +102,13 @@ A clinician-facing explanation of the acquisition and derivation pipeline is mai
 
 - `docs/CLINICAL_RATIONALE.md`
 
-The document separates primary optical measurements from derived or research-only parameters and explains why blood pressure and SpO₂ are not reported as direct measurements.
-
 ## iPhone test
 
-The app requires a secure HTTPS origin and camera permission in Safari. GitHub's normal repository and raw-file views do not execute the HTML app as a normal secure web application.
-
-For quick development testing without GitHub Pages, the repository HTML can be served through an HTTPS source-code proxy such as raw.githack.com. This is a third-party service intended for development/testing, not production.
+The app requires a secure HTTPS origin and camera permission in Safari. For quick development testing without GitHub Pages, the repository can be served through an HTTPS source-code proxy such as raw.githack.com. This is a third-party development/testing service, not a production deployment.
 
 ## Medical status
 
-This is an experimental prototype, **not a medical device**. It must not be used for diagnosis, monitoring requiring clinical accuracy, or clinical decision-making. Blood pressure and SpO₂ are not presented as direct measurements.
+This is an experimental research prototype, **not a medical device**. It must not be used for diagnosis, clinical monitoring, or therapeutic decisions. Rhythm screening, respiratory estimation, ultra-short HRV metrics and the optical R/G index are research/exploratory outputs.
 
 ## License / project protection
 
