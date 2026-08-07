@@ -4,45 +4,61 @@ Experimental browser-based photoplethysmography (PPG) prototype for iPhone.
 
 > **Required Notice:** Copyright 2026 AR-Night. Eris Pulse Lab.
 
-## Current prototype — v0.5
+## Current prototype — v0.6 WOW
 
-- 60-second measurement session
+The v0.6 interface moves the project toward a more cinematic health-tech presentation while keeping the analysis tied to the real camera-derived PPG signal.
+
+### Measurement flow
+
+- **30-second** measurement session
 - Rear-camera access and torch-capability search
 - Torch test before measurement
 - Finger-contact and basic saturation checks
 - Real RGB camera-frame acquisition
 - Real-time PPG waveform
-- **Animated heartbeat synchronized to the estimated BPM**
-- **Animated breathing indicator synchronized to the PPG-derived respiratory estimate when confidence is sufficient**
-- **Live trend built progressively during acquisition**
-- BPM estimate and BPM trend
-- Respiratory-rate trend when estimable
-- BPM mean, minimum and maximum
+- Live BPM estimate and trend
+- PPG-derived respiratory estimate when confidence is sufficient
 - Median RR / IBI interval
 - Short-term RMSSD estimate
-- Signal-quality score
-- Estimated respiratory rate from slow PPG modulation, only when signal confidence is sufficient
+- Signal-quality estimate
 - Exploratory pulse morphology: rise time, pulse width, optical AC/DC pulsatility and dicrotic-notch screening
-- **Automatic final trend + Eris Physiological Report at the end of the session**
-- No invented value: unavailable or weak features are reported as **Not estimable / Non stimabile**
+- Automatic final trend and **Eris Physiological Report**
+- Weak or unavailable features are shown as **Non stimabile** instead of being invented
+
+## v0.6 visual system
+
+The live screen now includes an inline anatomical torso rendered directly in SVG:
+
+- translucent thorax and rib-cage styling
+- animated glowing heart
+- heart animation duration synchronized to the estimated BPM
+- animated lungs / thoracic expansion
+- breathing animation synchronized to the PPG-derived respiratory estimate when available
+- moving scan line and rotating HUD rings
+- live heart-rate and respiratory HUD cards
+- trend that is progressively drawn during the scan
+- automatic transition to the final trend/report after 30 seconds
+
+The anatomical display is a visualization layer; physiological values continue to come from the PPG analysis pipeline rather than from the animation.
 
 ## How the respiratory estimate is obtained
 
-Breathing can modulate a PPG signal through slow changes in baseline, pulse amplitude and beat-to-beat timing. Eris Pulse Lab searches for a coherent low-frequency modulation in the acquired optical signal and estimates the dominant respiratory frequency only when the correlation/quality threshold is met.
+Breathing can modulate a PPG signal through slower changes in baseline, pulse amplitude and beat-to-beat timing. Eris Pulse Lab searches the acquired optical signal for a coherent low-frequency modulation compatible with a respiratory rhythm.
 
-This is an **indirect PPG-derived estimate**, not a spirometric measurement.
+Because v0.6 uses a short 30-second window, respiratory output is treated as an **indirect estimate / trend feature**. If the modulation is not sufficiently coherent, the report returns **Non stimabile**.
+
+This is not a spirometric measurement.
 
 ## Final report
 
-At the end of the 60-second session the app automatically opens the final trend and report. The report can include:
+At the end of the 30-second session the app automatically opens the final trend and report. The report can include:
 
 - mean / minimum / maximum BPM
-- complete BPM trend
+- BPM trend
 - respiratory trend when estimable
 - median RR / IBI
 - RMSSD
 - estimated respiratory rate + confidence
-- relative optical pulse morphology
 - rise time and pulse width when measurable
 - relative optical AC/DC pulsatility
 - dicrotic-notch screening when morphology and frame rate are adequate
@@ -50,7 +66,7 @@ At the end of the 60-second session the app automatically opens the final trend 
 
 ## Clinical rationale
 
-A detailed clinician-facing explanation of the acquisition and derivation pipeline is maintained in:
+A clinician-facing explanation of the acquisition and derivation pipeline is maintained in:
 
 - `docs/CLINICAL_RATIONALE.md`
 
@@ -60,7 +76,7 @@ The document separates primary optical measurements from derived or research-onl
 
 The app requires a secure HTTPS origin and camera permission in Safari. GitHub's normal repository and raw-file views do not execute the HTML app as a normal secure web application.
 
-For quick development testing without GitHub Pages, the repository HTML can be served through an HTTPS source-code proxy such as raw.githack.com. This is a third-party service and is intended only for development/testing, not production.
+For quick development testing without GitHub Pages, the repository HTML can be served through an HTTPS source-code proxy such as raw.githack.com. This is a third-party service intended for development/testing, not production.
 
 ## Medical status
 
@@ -68,11 +84,4 @@ This is an experimental prototype, **not a medical device**. It must not be used
 
 ## License / project protection
 
-This repository is **source-available, not open-source under a permissive MIT-style license**.
-
-Eris Pulse Lab is offered under the **PolyForm Noncommercial License 1.0.0**:
-https://polyformproject.org/licenses/noncommercial/1.0.0/
-
-In practical terms, noncommercial study, experimentation, testing, modification, and distribution are allowed subject to the license terms. Commercial use requires separate permission from the licensor.
-
-Publishing the repository publicly makes the source visible; the license governs permitted reuse but is not a technical copy-protection mechanism.
+This repository is source-available under the **PolyForm Noncommercial License 1.0.0**. Noncommercial study, experimentation, testing and modification are allowed subject to the license terms. Commercial use requires separate permission from the licensor.
