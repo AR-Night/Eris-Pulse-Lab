@@ -1,59 +1,139 @@
-<!-- Copyright 2026 AR-Night. Eris Pulse Lab. PolyForm Noncommercial 1.0.0. Commercial use requires separate permission. --><!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#03070d"><title>Eris Pulse Lab v0.6 WOW</title><link rel="stylesheet" href="app.css?v=0.6"></head><body>
+<!--
+Required Notice: Copyright 2026 AR-Night. Eris Pulse Lab.
+Licensed under the PolyForm Noncommercial License 1.0.0.
+Commercial use requires separate permission from the licensor.
+https://polyformproject.org/licenses/noncommercial/1.0.0/
+-->
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#07090d">
+<title>Eris Pulse Lab REAL v0.7</title>
+<link rel="stylesheet" href="app.css?v=0.7.0">
+</head>
+<body>
 <div class="app">
-<header><div><div class="brand">ERIS <b>PULSE</b> LAB</div><div class="sub">30 second physiological scan</div></div><span class="badge">REAL v0.6</span></header>
+  <div class="top"><div><div class="brand">ERIS · PULSE LAB</div><div class="subtitleTop">30 second physiological scan</div></div><div class="badge">REAL v0.7</div></div>
 
-<section class="glass livePanel">
-<div class="status"><span id="dot"></span><span id="status">Pronto</span></div>
-<div class="topMetrics"><div><strong id="bpm">--</strong><small>BPM</small></div><div class="timer"><b id="timer">00:30</b><small id="phase">durata misura</small></div></div>
+  <div class="panel">
+    <div id="status" class="status">Pronto</div>
+    <div class="read">
+      <div class="bpmline"><div id="bpm">--</div><div class="unit">BPM</div></div>
+      <div class="timer"><div id="timer">00:30</div><small id="phase">durata misura</small></div>
+    </div>
 
-<div id="anatomy" class="anatomy">
-  <div class="rings"></div><div class="scanline"></div>
-  <div class="hud time"><small>TEMPO RESIDUO</small><b id="hudTimer">00:30</b></div>
-  <div class="hud analysis"><small><i></i> LIVE ANALYSIS</small><span id="liveText">In attesa del segnale</span></div>
-  <div class="hud hrate"><small>HEART RATE</small><b id="hudBpm">--</b><span>BPM</span></div>
-  <div class="hud resp"><small>RESPIRATION</small><b id="hudResp">--</b><span>/min</span></div>
-  <svg class="body" viewBox="0 0 360 430" role="img" aria-label="Tronco anatomico stilizzato con cuore e polmoni">
-    <defs>
-      <linearGradient id="tf" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#164b73" stop-opacity=".42"/><stop offset=".55" stop-color="#0b2035" stop-opacity=".18"/><stop offset="1" stop-color="#06101d" stop-opacity=".6"/></linearGradient>
-      <linearGradient id="lf" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#6ee0ff" stop-opacity=".42"/><stop offset="1" stop-color="#136aa5" stop-opacity=".08"/></linearGradient>
-      <radialGradient id="hf"><stop stop-color="#fff"/><stop offset=".2" stop-color="#ffabb7"/><stop offset=".55" stop-color="#ff4862"/><stop offset="1" stop-color="#7d0c20"/></radialGradient>
-      <filter id="rg"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-      <filter id="bg"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    </defs>
-    <path class="torso" d="M126 24C110 45 111 75 106 91 99 112 72 116 54 130 29 149 22 189 18 230L9 361c32 18 76 28 117 32h108c41-4 85-14 117-32l-9-131c-4-41-11-81-36-100-18-14-45-18-52-39-5-16-4-46-20-67-16-17-92-17-108 0z"/>
-    <line class="spine" x1="180" y1="62" x2="180" y2="350"/>
-    <g class="ribs"><path d="M177 120C138 111 95 123 69 151M183 120C222 111 265 123 291 151M177 145C130 134 86 149 58 180M183 145C230 134 274 149 302 180M177 171C124 159 78 178 52 211M183 171C236 159 282 178 308 211M177 198C122 188 77 210 51 244M183 198C238 188 283 210 309 244"/></g>
-    <g class="lungs"><path d="M169 119c-26-6-57 4-75 26-20 26-24 80-16 132 5 33 26 50 50 43 23-7 38-32 41-69z"/><path d="M191 119c26-6 57 4 75 26 20 26 24 80 16 132-5 33-26 50-50 43-23-7-38-32-41-69z"/></g>
-    <g class="heart"><ellipse class="pulseRing" cx="180" cy="230" rx="48" ry="54"/><ellipse class="pulseRing r2" cx="180" cy="230" rx="48" ry="54"/><path d="M180 287c-12-13-47-37-47-76 0-29 22-44 44-27 22-23 51-8 52 21 1 30-25 57-49 82z"/></g>
-  </svg>
-  <div class="caption">PPG → cuore · modulazione lenta → respiro</div>
+    <div id="anatomyStage" class="anatomyStage">
+      <div class="scanHalo"></div>
+      <div class="scanLineAnat"></div>
+      <div class="hud hudTime"><div class="hk">Tempo residuo</div><div id="hudTimer" class="hv">00:30</div><div class="hs">scan fisiologico</div></div>
+      <div class="hud hudLive"><div class="hk"><span class="liveDot"></span>Live analysis</div><div id="hudLiveText" class="hs" style="margin-top:7px">In attesa del segnale</div></div>
+      <div class="hud hudBpm"><div class="hk">Cuore</div><div id="hudBpm" class="hv" style="color:#ff687f">--</div><div class="hs">BPM</div></div>
+      <div class="hud hudResp"><div class="hk">Respiro</div><div id="hudResp" class="hv" style="color:#55c8ff">--</div><div class="hs">atti/min</div></div>
+
+      <svg class="torsoSvg" viewBox="0 0 360 430" aria-label="Tronco anatomico stilizzato">
+        <defs>
+          <linearGradient id="torsoFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#143451" stop-opacity=".36"/><stop offset=".5" stop-color="#0b2137" stop-opacity=".2"/><stop offset="1" stop-color="#061322" stop-opacity=".55"/></linearGradient>
+          <linearGradient id="lungFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#60d4ff" stop-opacity=".34"/><stop offset="1" stop-color="#2173b8" stop-opacity=".08"/></linearGradient>
+          <radialGradient id="heartFill"><stop offset="0" stop-color="#fff0f2"/><stop offset=".24" stop-color="#ff8fa0"/><stop offset=".62" stop-color="#ff405e"/><stop offset="1" stop-color="#8d1026"/></radialGradient>
+          <filter id="redGlow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <filter id="blueGlow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <path class="torsoOutline" d="M126 24 C110 45 111 75 106 91 C99 112 72 116 54 130 C29 149 22 189 18 230 L9 361 C41 379 85 389 126 393 L234 393 C275 389 319 379 351 361 L342 230 C338 189 331 149 306 130 C288 116 261 112 254 91 C249 75 250 45 234 24 C218 7 142 7 126 24 Z"/>
+        <line class="spine" x1="180" y1="62" x2="180" y2="353"/>
+        <g>
+          <path class="rib" d="M177 120 C138 111 95 123 69 151"/><path class="rib" d="M183 120 C222 111 265 123 291 151"/>
+          <path class="rib" d="M177 143 C130 133 86 148 58 180"/><path class="rib" d="M183 143 C230 133 274 148 302 180"/>
+          <path class="rib" d="M177 166 C124 157 78 176 52 211"/><path class="rib" d="M183 166 C236 157 282 176 308 211"/>
+          <path class="rib" d="M177 190 C121 183 76 205 50 241"/><path class="rib" d="M183 190 C239 183 284 205 310 241"/>
+          <path class="rib" d="M177 215 C124 210 82 231 58 265"/><path class="rib" d="M183 215 C236 210 278 231 302 265"/>
+        </g>
+        <g id="anatLungs">
+          <path class="lungShape" d="M169 119 C143 113 112 123 94 145 C74 171 70 225 78 277 C83 310 104 327 128 320 C151 313 166 288 169 251 Z"/>
+          <path class="lungShape" d="M191 119 C217 113 248 123 266 145 C286 171 290 225 282 277 C277 310 256 327 232 320 C209 313 194 288 191 251 Z"/>
+        </g>
+        <g id="anatHeart">
+          <ellipse class="heartRing" cx="180" cy="231" rx="48" ry="54"/><ellipse class="heartRing r2" cx="180" cy="231" rx="48" ry="54"/>
+          <path class="heartCore" d="M180 286 C168 274 133 250 133 211 C133 182 155 167 177 184 C199 161 228 176 229 205 C230 235 204 262 180 286 Z"/>
+        </g>
+      </svg>
+      <div class="bodyStatus">PPG → cuore · modulazione lenta → respiro</div>
+    </div>
+
+    <div class="chart"><canvas id="ppg"></canvas><div class="clabel">PPG · SEGNALE REALE</div></div>
+    <div class="chart small"><canvas id="trend"></canvas><div class="clabel">BPM NEL TEMPO</div></div>
+    <div class="tech"><span>Torcia <strong id="torch">OFF</strong></span><span>Dito <strong id="finger">--</strong></span><span>FPS <strong id="fps">--</strong></span></div>
+  </div>
+
+  <div class="grid">
+    <div class="card"><div class="lab">BPM medio</div><div id="avg" class="val">--</div></div>
+    <div class="card"><div class="lab">Qualità</div><div id="quality" class="val">--</div></div>
+    <div class="card"><div class="lab">RR mediano</div><div id="rr" class="val">-- <small>ms</small></div></div>
+    <div class="card"><div class="lab">RMSSD</div><div id="rmssd" class="val">-- <small>ms</small></div></div>
+    <div class="card"><div class="lab">Ritmo PPG</div><div id="rhythm" class="val">--</div><div class="miniNote">screening di regolarità · non ECG</div></div>
+    <div class="card research"><div class="lab">O₂ ottico · research</div><div id="oxyResearch" class="val">--</div><div class="miniNote">rapporto pulsatile R/G · non SpO₂</div></div>
+  </div>
+
+  <div class="info"><b>Misura reale di 30 s.</b> Il PPG viene usato per battito, RR e HRV breve. La respirazione è stimata fondendo modulazione della baseline, ampiezza degli impulsi e variazioni beat-to-beat quando coerenti. Il ritmo è uno screening di regolarità PPG. L’indice O₂ ottico R/G è solo ricerca: non è una SpO₂.</div>
+  <div id="msg" class="msg hidden"></div>
+  <div class="actions"><button id="start" class="primary">Accendi luce e misura 30 s</button><button id="test" class="secondary">Test solo luce</button><button id="stop" class="stop hidden">Interrompi</button></div>
+
+  <section id="report" class="report hidden">
+    <div class="reportHead"><h2>Eris Physiological Report</h2><div id="reportStamp" class="stamp"></div></div>
+    <div class="reportHero"><div id="reportBpm" class="heroBpm">-- <small>BPM medi</small></div><div id="reportRange" class="range">Range --</div></div>
+    <div class="chart finalTrendBox"><canvas id="finalTrend"></canvas><div class="clabel">TREND FINALE · BPM + RESPIRAZIONE</div></div>
+
+    <div class="sectionTitle">Cardiaco, HRV e regolarità</div>
+    <div class="rgrid">
+      <div class="rbox"><div class="k">RR / IBI mediano</div><div id="repRR" class="v">--</div><div class="sub">intervallo tra pulsazioni</div></div>
+      <div class="rbox"><div class="k">RMSSD</div><div id="repRMSSD" class="v">--</div><div class="sub">HRV beat-to-beat breve termine</div></div>
+      <div class="rbox"><div class="k">SDNN 30 s</div><div id="repSDNN" class="v">--</div><div class="sub">metrica ultra-short · orientativa</div></div>
+      <div class="rbox"><div class="k">pNN50 30 s</div><div id="repPNN50" class="v">--</div><div class="sub">% differenze RR &gt; 50 ms · orientativa</div></div>
+      <div class="rbox"><div class="k">BPM minimo</div><div id="repMin" class="v">--</div></div>
+      <div class="rbox"><div class="k">BPM massimo</div><div id="repMax" class="v">--</div></div>
+      <div class="rbox"><div class="k">Regolarità ritmo PPG</div><div id="repRhythm" class="v">--</div><div id="repRhythmSub" class="sub">screening PPG · non diagnosi di aritmia</div></div>
+      <div class="rbox research"><div class="k">LF/HF</div><div id="repLFHF" class="v">Protocollo lungo</div><div class="sub">non calcolato su 30 s; richiede finestra più lunga</div></div>
+    </div>
+
+    <div class="sectionTitle">Respirazione stimata dal PPG</div>
+    <div class="rgrid">
+      <div class="rbox"><div class="k">Frequenza respiratoria</div><div id="repResp" class="v">--</div><div id="repRespSub" class="sub">baseline + ampiezza del polso + variazione IBI</div></div>
+      <div class="rbox"><div class="k">Confidenza respirazione</div><div id="repRespQ" class="v">--</div><div class="sub">coerenza della modulazione ottica</div></div>
+    </div>
+
+    <div class="sectionTitle">Morfologia ottica del polso</div>
+    <div class="rgrid">
+      <div class="rbox"><div class="k">Tempo di salita</div><div id="repRise" class="v">--</div><div class="sub">piede → picco, mediana</div></div>
+      <div class="rbox"><div class="k">Larghezza impulso</div><div id="repWidth" class="v">--</div><div class="sub">a metà ampiezza, mediana</div></div>
+      <div class="rbox"><div class="k">Pulsatilità ottica AC/DC</div><div id="repACDC" class="v">--</div><div class="sub">indice relativo, non perfusione assoluta</div></div>
+      <div class="rbox research"><div class="k">Notch dicroto</div><div id="repNotch" class="v">--</div><div class="sub">solo se morfologia/FPS sufficienti</div></div>
+    </div>
+
+    <div class="sectionTitle">Ossigenazione ottica · ricerca e limiti</div>
+    <div class="rgrid">
+      <div class="rbox research"><div class="k">Indice pulsatile R/G</div><div id="repOxyRG" class="v">--</div><div class="sub">(AC/DC rosso) ÷ (AC/DC verde) · non calibrato</div></div>
+      <div class="rbox research"><div class="k">Stabilità indice ottico</div><div id="repOxyState" class="v">--</div><div class="sub">controllo interno tra metà della registrazione</div></div>
+      <div class="rbox"><div class="k">SpO₂</div><div id="repSpO2" class="v">Non riportata</div><div class="sub">manca calibrazione/validazione per iPhone e range clinico</div></div>
+      <div class="rbox"><div class="k">Pressione arteriosa</div><div id="repBP" class="v">Non stimata</div><div class="sub">nessun valore mmHg ricavato dalla sola PPG</div></div>
+    </div>
+
+    <div class="sectionTitle">Affidabilità della sessione</div>
+    <div class="rgrid">
+      <div class="rbox"><div class="k">Qualità complessiva</div><div id="repQuality" class="v">--</div><div id="qualityDots" class="qualityRow"><i class="qdot"></i><i class="qdot"></i><i class="qdot"></i><i class="qdot"></i><i class="qdot"></i></div></div>
+      <div class="rbox"><div class="k">Campioni validi</div><div id="repValid" class="v">--</div><div id="repFps" class="sub">FPS --</div></div>
+    </div>
+
+    <div class="reportNote">BPM e intervalli di polso derivano dal PPG acquisito nella sessione. RMSSD, SDNN/pNN50 ultra-short, respirazione, regolarità del ritmo e morfologia sono feature derivate e dipendono dalla qualità del segnale. Lo screening di ritmo non diagnostica fibrillazione atriale. L’indice R/G è un parametro ottico di ricerca: non viene convertito in SpO₂. Pressione arteriosa e decisioni cliniche restano escluse.</div>
+    <div class="actions"><button id="newMeasure" class="primary">Nuova misurazione</button></div>
+  </section>
+
+  <footer>Prototipo sperimentale PPG v0.7. Non è un dispositivo medico. Screening di ritmo e indice R/G sono funzioni di ricerca e non sostituiscono ECG, pulsossimetria o valutazione clinica.</footer>
 </div>
 
-<div class="waves">
- <div class="chart"><label>PPG · LIVE</label><canvas id="ppg"></canvas></div>
- <div class="chart small"><label>TREND IN COSTRUZIONE</label><canvas id="trend"></canvas><div class="legend"><i></i>BPM <i class="cyan"></i>Respiro</div></div>
-</div>
-<div class="tech"><span>Torcia <b id="torch">OFF</b></span><span>Dito <b id="finger">--</b></span><span>FPS <b id="fps">--</b></span></div>
-</section>
-
-<div class="cards"><div><small>BPM MEDIO</small><b id="avg">--</b></div><div><small>QUALITÀ</small><b id="quality">--</b></div><div><small>RR MEDIANO</small><b id="rr">--</b></div><div><small>RMSSD</small><b id="rmssd">--</b></div></div>
-<div id="msg" class="message hidden"></div>
-<div class="actions"><button id="start">Accendi luce e misura 30 s</button><button id="test" class="alt">Test solo luce</button><button id="stop" class="danger hidden">Interrompi</button></div>
-
-<section id="report" class="glass report hidden">
- <div class="reportHead"><div><h2>Eris Physiological Report</h2><small>Analisi automatica della sessione</small></div><span id="stamp"></span></div>
- <div class="hero"><strong id="repBpm">--</strong><span>BPM medi</span><small id="repRange">Range --</small></div>
- <div class="chart final"><label>TREND FINALE · BPM + RESPIRAZIONE</label><canvas id="finalTrend"></canvas></div>
- <h3>Cardiaco e variabilità</h3><div class="reportGrid"><div><small>RR / IBI mediano</small><b id="repRR">--</b></div><div><small>RMSSD</small><b id="repRMSSD">--</b></div><div><small>BPM minimo</small><b id="repMin">--</b></div><div><small>BPM massimo</small><b id="repMax">--</b></div></div>
- <h3>Respirazione dal PPG</h3><div class="reportGrid"><div><small>Frequenza stimata</small><b id="repResp">--</b><em id="repRespSub"></em></div><div><small>Confidenza</small><b id="repRespQ">--</b></div></div>
- <h3>Morfologia ottica</h3><div class="reportGrid"><div><small>Tempo di salita</small><b id="repRise">--</b></div><div><small>Larghezza impulso</small><b id="repWidth">--</b></div><div><small>Pulsatilità AC/DC</small><b id="repACDC">--</b></div><div><small>Notch dicroto</small><b id="repNotch">--</b></div></div>
- <h3>Affidabilità</h3><div class="reportGrid"><div><small>Qualità complessiva</small><b id="repQuality">--</b></div><div><small>Campioni validi</small><b id="repValid">--</b><em id="repFps"></em></div></div>
- <p class="note">Respirazione e morfologia sono feature derivate dal PPG su una finestra breve di 30 s. Se l’evidenza non è sufficiente il valore viene indicato come “Non stimabile”. Non sono misure di pressione, SpO₂ o diagnosi.</p>
- <button id="newMeasure">Nuova misurazione</button>
-</section>
-<footer>Prototipo sperimentale PPG · non è un dispositivo medico.</footer>
-</div>
-
-<div id="overlay" class="overlay hidden"><div><div class="fingerIcon">☝︎</div><b id="count">5</b><h2>Copri lente e flash</h2><p>Tieni il dito fermo. La misura parte quando il contatto viene riconosciuto.</p><small id="overlayState">Torcia attiva</small></div></div>
+<div id="overlay" class="overlay hidden"><div><div class="finger">☝︎</div><div id="count">5</div><h2>Copri lente e flash</h2><p>Tieni il dito fermo e senza premere eccessivamente. La misura parte solo quando il contatto è stabile.</p><div id="ostate" class="smallState">Torcia attiva</div></div></div>
 <video id="video" playsinline muted autoplay></video><canvas id="sample" width="48" height="36" class="hidden"></canvas>
-<script src="app.js?v=0.6"></script></body></html>
+
+<script src="app.js?v=0.7.0"></script>
+</body>
+</html>
